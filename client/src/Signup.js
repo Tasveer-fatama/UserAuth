@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import axios from 'axios'
 
 const Signup = () => {
     const initialState ={
@@ -9,14 +10,17 @@ const Signup = () => {
         cpassword:"",
     }
     const [signup,setSignup]= useState(initialState);
+    const navigate = useNavigate(); 
     const inputHandler =(e)=>{
       // console.log('Name:', e.target.name, 'Value:', e.target.value);
         setSignup({...signup, [e.target.name]: e.target.value});
     }
-    const submitHandler =(e)=>{
+    const submitHandler =async(e)=>{
         e.preventDefault();
         console.log(signup);
-        
+       
+       const response=await axios.post("http://localhost:4000/signup",signup) 
+       navigate("/");
     }
   return (
     <div className='flex justify-center items-center  h-screen'>
@@ -73,7 +77,7 @@ const Signup = () => {
         Confirm password
       </label>
       <input
-        type="cpassword"
+        type="password"
         id="cpassword"
         name="cpassword"
         onChange={inputHandler}

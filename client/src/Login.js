@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 const Login = () => {
     const initialState ={
@@ -11,10 +12,21 @@ const Login = () => {
       // console.log('Name:', e.target.name, 'Value:', e.target.value);
         setLogin({...login, [e.target.name]: e.target.value});
     }
-    const submitHandler =(e)=>{
+    const submitHandler =async(e)=>{
         e.preventDefault();
         console.log(login);
+      try {
+        const response=await axios.get("http://localhost:4000/");
+        const exist = response.data.users.find((user)=>{
+          return user.email ===login.email;
+        })
+        if(!exist){
+          alert("user are not exist")
+        }
+      } catch (error) {
+        console.log(error);
         
+      }  
     }
   return (
     <div>

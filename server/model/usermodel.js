@@ -18,7 +18,12 @@ const userSchema=mongoose.Schema({
         required:true,
         trim:true
     },
+    cpassword:{
+        type:Number,
+        required:true,
+        trim:true
+    },
 })
 
-const  User =mongoose.model("User",userSchema);
+const  User =mongoose.model("users",userSchema);
 export default User;
